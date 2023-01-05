@@ -28,3 +28,20 @@ repeat' :: t -> [t]
 repeat' x = x : repeat' x 
 
 -- points z = [(x,y)| x<-[-z..z], y <-[-z..z], abs(x + y) <= z]
+
+sum:: Integer -> Integer -> Integer
+sum a b = a + b
+
+len :: Show a => [a] -> [Char]
+len ls@(l:_) = "List starts with " ++
+    show l ++ " and is " ++
+    show (length ls) ++ " items long."
+len [] = "List is empty!"
+
+data Color = C { red, green, blue :: Int }
+
+instance Show Color where
+    show C { red = a, green=b, blue=c } = "Color red=" ++ show a ++ ", green=" ++ show b ++ ", blue=" ++ show c
+
+isGreenZero (C { green = 0 }) = True
+isGreenZero _ = False

@@ -7,9 +7,11 @@
 -- A function charsProductOf :: [Int] -> [Char] that, given a list of numbers ns, returns all the characters that have a number that is a product of any two numbers in ns.
 
 charsDivisibleBy :: Int -> [Char]
-charsDivisibleBy number = [['a' .. 'z'] !! (index - 1) | number > 0, number < 27, index <- [1 .. 26], index `mod` number == 0]
+charsDivisibleBy number = [char | (num, char) <- zip [1 ..] ['a' .. 'z'], number /= 0 ,num `mod` number == 0]
 
 charsProductOf :: [Int] -> [Char]
-charsProductOf [] = []
-charsProductOf [head] = []
-charsProductOf (head : tail) = [['a' .. 'z'] !! ((head * tailIndex) - 1) | tailIndex <- tail, (head * tailIndex) < 27, (head * tailIndex) > 0] ++ charsProductOf tail
+charsProductOf numList = myNub [['a' .. 'z'] !! (x * y - 1) | x <- numList, y <- numList, x /= y, x * y <= 26]
+
+myNub :: (Eq a) => [a] -> [a]
+myNub [] = []
+myNub (x:xs) = x : myNub (filter (/= x) xs)
